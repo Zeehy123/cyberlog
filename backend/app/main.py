@@ -9,7 +9,20 @@ from fastapi.middleware.cors import CORSMiddleware
 import random
 from app.anomaly import detect_anomalies
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
 
+# Add this right after you create your FastAPI app: app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",          # local dev
+        "https://your-app.vercel.app",    # replace with your Vercel URL after deploying
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
