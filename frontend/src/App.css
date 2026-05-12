@@ -1,4 +1,9 @@
 .counter {
+  /* App.css
+     Component-specific utility classes used by the demo UI. Keep
+     styles scoped and small for the demo; global tokens come from
+     `index.css`.
+  */
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -167,7 +172,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4.5px;
     border: 5px solid transparent;

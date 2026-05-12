@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+// Login.jsx
+// Simple demo login screen used by the frontend. This component only
+// simulates authentication (no backend call) and triggers `onLogin`
+// when a non-empty email/password are submitted.
+
 const MONO = "'JetBrains Mono', 'Fira Mono', monospace";
 
 const SCAN_LINES = Array.from({ length: 6 }, (_, i) => i);
@@ -11,6 +16,8 @@ export default function Login({ onLogin }) {
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
 
+  // Simulated submit handler: waits briefly then calls `onLogin`
+  // when credentials are present. Intended for UX/demo only.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

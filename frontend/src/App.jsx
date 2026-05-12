@@ -1,3 +1,8 @@
+// App.jsx
+// Main dashboard UI for the CyberLog demo frontend.
+// - Fetches aggregated analytics from the backend (`/analytics`).
+// - Connects to a websocket for a live log stream.
+// - Renders charts and lists of alerts/anomalous IPs using Recharts.
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -16,6 +21,8 @@ import {
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 const WS_URL = import.meta.env.VITE_WS_URL || "ws://127.0.0.1:8000";
 
+// Backend endpoints are configurable via Vite env vars; fall back to
+// localhost defaults for local development.
 const MONO = "'JetBrains Mono', 'Fira Mono', monospace";
 
 const SEVERITY_STYLES = {
@@ -123,6 +130,8 @@ export default function App() {
       .catch((err) => console.error(err));
   }, []);
 
+  // Websocket for live logs: incoming messages are prepended to
+  // `liveLogs` and the UI keeps a short history for display.
   useEffect(() => {
     const socket = new WebSocket(`${WS_URL}/ws/logs`);
     socket.onmessage = (event) => {
@@ -141,6 +150,9 @@ export default function App() {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const chartData = Object.entries(res.data.suspicious_ips).map(
+        // `uploadFile` posts a user-selected log file to the backend for
+        // parsing and analysis. The returned summary is merged into state
+        // so charts/list update after processing.
         ([ip, count]) => ({ ip, count }),
       );
       setData({ ...res.data, chartData });
