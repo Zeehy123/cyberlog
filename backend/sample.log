@@ -1,0 +1,15 @@
+192.168.1.1 - GET /home 200
+192.168.1.2 - GET /login 200
+192.168.1.3 - POST /admin 401
+192.168.1.3 - POST /admin 401
+192.168.1.3 - POST /admin 401
+192.168.1.3 - POST /admin 401
+192.168.1.3 - POST /admin 401
+192.168.1.8 - GET /dashboard 200
+192.168.1.9 - GET /api/data 500
+192.168.1.20 - GET /wp-admin 403
+192.168.1.15 - GET /products?id=' OR 1=1 500
+192.168.1.50 - GET /login 401
+192.168.1.50 - GET /login 401
+192.168.1.50 - GET /login 401
+192.168.1.50 - GET /login 401
