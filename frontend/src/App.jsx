@@ -13,6 +13,9 @@ import {
   Cell,
 } from "recharts";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+const WS_URL = import.meta.env.VITE_WS_URL || "ws://127.0.0.1:8000";
+
 const MONO = "'JetBrains Mono', 'Fira Mono', monospace";
 
 const SEVERITY_STYLES = {
@@ -115,13 +118,13 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/analytics")
+      .get(`${API_URL}/analytics`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://127.0.0.1:8000/ws/logs");
+    const socket = new WebSocket(`${WS_URL}/ws/logs`);
     socket.onmessage = (event) => {
       const newLog = JSON.parse(event.data);
       setLiveLogs((prev) => [newLog, ...prev.slice(0, 9)]);
@@ -134,7 +137,7 @@ export default function App() {
     const formData = new FormData();
     formData.append("file", selectedFile);
     try {
-      const res = await axios.post("http://127.0.0.1:8000/upload", formData, {
+      const res = await axios.post(`${API_URL}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const chartData = Object.entries(res.data.suspicious_ips).map(
