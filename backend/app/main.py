@@ -17,7 +17,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",          # local dev
-        "https://your-app.vercel.app",    # replace with your Vercel URL after deploying
+        "https://cyberlog-swart.vercel.app/",    
     ],
     allow_credentials=True,
     allow_methods=["*"],
